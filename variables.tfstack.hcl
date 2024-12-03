@@ -23,3 +23,8 @@ variable "default_tags" {
   type        = map(string)
   default     = {}
 }
+variable "role_arn" {
+  description = "AWS OIDC role"
+  type      = string
+  role_arn  = "arn:aws:iam::303952242443:oidc-provider/app.terraform.io"
+}

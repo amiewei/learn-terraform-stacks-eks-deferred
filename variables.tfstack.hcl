@@ -29,3 +29,7 @@ variable "default_tags" {
 #   type      = string
 #   role_arn  = "arn:aws:iam::303952242443:oidc-provider/app.terraform.io"
 # }
+
+variable "role_arn" {
+  type = string
+}

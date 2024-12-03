@@ -23,6 +23,7 @@ variable "default_tags" {
   type        = map(string)
   default     = {}
 }
+
 variable "role_arn" {
   description = "AWS OIDC role"
   type      = string

@@ -10,7 +10,8 @@ deployment "development" {
     cluster_name        = "stacks-demo"
     kubernetes_version  = "1.30"
     region              = "us-east-2"
-    role_arn            = "arn:aws:iam::303952242443:role/stacks-tf-se-test-Learn-Terraform-Stacks-deferred-actions"
+    # the role_arn is tied to the Terraform project name and org you specify in the identity workspace configuration (pre-req)
+    role_arn            = "arn:aws:iam::303952242443:role/stacks-tf-se-test-AWS"
     identity_token      = identity_token.aws.jwt
     default_tags        = { stacks-preview-example = "eks-deferred-stack" }
   }

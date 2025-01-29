@@ -13,13 +13,6 @@ resource "aws_iam_role" "demo-cluster" {
           Service = "eks.amazonaws.com"
         },
         Action = "sts:AssumeRole"
-      },
-      {
-        Effect = "Allow"
-        Principal = {
-          AWS = "arn:aws:iam::303952242443:role/aws_amie.wei_test-developer"
-        }
-        Action = "sts:AssumeRole"
       }
     ]
   })
@@ -65,4 +58,23 @@ resource "aws_iam_role_policy_attachment" "demo-AmazonEKS_CNI_Policy" {
 resource "aws_iam_role_policy_attachment" "demo-AmazonEC2ContainerRegistryReadOnly" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
   role       = aws_iam_role.demo-node.name
+}
+
+
+######## Access Entry ##########
+resource "aws_eks_access_entry" "user" {
+  cluster_name  = aws_eks_cluster.demo.name
+  principal_arn = "arn:aws:iam::303952242443:role/aws_amie.wei_test-developer"
+  type          = "STANDARD"
+}
+
+resource "aws_eks_access_policy_association" "user" {
+  cluster_name  = aws_eks_cluster.demo.name
+  policy_arn    = "arn:aws:iam::aws:policy/AmazonEKSAdminPolicy"
+  principal_arn = "arn:aws:iam::303952242443:role/aws_amie.wei_test-developer"
+
+  access_scope {
+    type = "cluster"
+  }
+  depends_on = [aws_eks_access_entry.user]
 }

@@ -26,4 +26,5 @@ component "kube" {
 
 output "cluster_url" {
   value = component.cluster.cluster_url
+  type = string
 }

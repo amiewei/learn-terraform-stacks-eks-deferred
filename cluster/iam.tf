@@ -17,7 +17,7 @@ resource "aws_iam_role" "demo-cluster" {
       {
         Effect = "Allow"
         Principal = {
-          AWS = "arn:aws:sts::303952242443:assumed-role/aws_amie.wei_test-developer/*"
+          AWS = "arn:aws:iam::303952242443:role/aws_amie.wei_test-developer"
         }
         Action = "sts:AssumeRole"
       }

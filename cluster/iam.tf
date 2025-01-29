@@ -13,6 +13,13 @@ resource "aws_iam_role" "demo-cluster" {
           Service = "eks.amazonaws.com"
         },
         Action = "sts:AssumeRole"
+      },
+      {
+        Effect = "Allow"
+        Principal = {
+          AWS = "arn:aws:sts::303952242443:assumed-role/aws_amie.wei_test-developer/*"
+        }
+        Action = "sts:AssumeRole"
       }
     ]
   })

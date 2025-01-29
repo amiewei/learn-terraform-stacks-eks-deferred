@@ -70,7 +70,7 @@ resource "aws_eks_access_entry" "user" {
 
 resource "aws_eks_access_policy_association" "user" {
   cluster_name  = aws_eks_cluster.demo.name
-  policy_arn    = "arn:aws:iam::aws:policy/AmazonEKSAdminPolicy"
+  policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSAdminPolicy"
   principal_arn = "arn:aws:iam::303952242443:role/aws_amie.wei_test-developer"
 
   access_scope {

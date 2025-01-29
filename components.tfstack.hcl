@@ -23,3 +23,7 @@ component "kube" {
     kubernetes = provider.kubernetes.main
   }
 }
+
+output "cluster_url" {
+  value = component.cluster.cluster_url
+}

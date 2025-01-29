@@ -62,19 +62,31 @@ resource "aws_iam_role_policy_attachment" "demo-AmazonEC2ContainerRegistryReadOn
 
 
 ######## Access Entry ##########
+locals {
+  eks_policies = {
+    "admin_policy"  = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSAdminPolicy"
+    "cluster_admin" = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+    "view_only"     = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSViewPolicy"
+  }
+}
+
 resource "aws_eks_access_entry" "user" {
   cluster_name  = aws_eks_cluster.demo.name
   principal_arn = "arn:aws:iam::303952242443:role/aws_amie.wei_test-developer"
   type          = "STANDARD"
 }
 
-resource "aws_eks_access_policy_association" "user" {
+resource "aws_eks_access_policy_association" "user_policies" {
+  for_each      = local.eks_policies
   cluster_name  = aws_eks_cluster.demo.name
-  policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSAdminPolicy"
+  policy_arn    = each.value
   principal_arn = "arn:aws:iam::303952242443:role/aws_amie.wei_test-developer"
 
   access_scope {
-    type = "cluster"
+    type       = "cluster"
+    namespaces = []
   }
+
   depends_on = [aws_eks_access_entry.user]
 }
+

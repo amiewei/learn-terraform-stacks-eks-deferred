@@ -44,6 +44,11 @@ resource "aws_eks_cluster" "demo" {
     aws_iam_role_policy_attachment.demo-AmazonEKSClusterPolicy,
     aws_iam_role_policy_attachment.demo-AmazonEKSVPCResourceController,
   ]
+  lifecycle {
+    ignore_changes = [
+      access_config,
+    ]
+  }
 }
 
 resource "aws_eks_node_group" "demo" {

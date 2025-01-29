@@ -8,16 +8,16 @@ terraform {
       version = "~> 5.59.0"
     }
     random = {
-      source = "hashicorp/random"
+      source  = "hashicorp/random"
       version = "~> 3.6.2"
     }
   }
 }
 
 resource "random_string" "demo" {
-  length = 4
+  length  = 4
   special = false
-  upper = false
+  upper   = false
 }
 
 locals {
@@ -30,7 +30,8 @@ resource "aws_eks_cluster" "demo" {
   role_arn = aws_iam_role.demo-cluster.arn
 
   vpc_config {
-    subnet_ids = aws_subnet.demo.*.id
+    subnet_ids             = aws_subnet.demo.*.id
+    endpoint_public_access = true
   }
 
   # Ensure that IAM Role permissions are created before and deleted after EKS Cluster handling.
